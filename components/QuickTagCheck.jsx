@@ -1,3 +1,5 @@
+'use client'
+
 import { useState } from 'react';
 import { UNIT_OPTIONS, CURRENCIES } from '../constants/units';
 import { convertToBaseUnit, getUnitCategory } from '../utils/conversions';

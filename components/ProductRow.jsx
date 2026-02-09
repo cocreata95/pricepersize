@@ -1,3 +1,5 @@
+'use client'
+
 import { useMemo } from 'react';
 import { CURRENCIES, UNIT_OPTIONS, DISPLAY_UNIT_NAMES, BASE_TO_DISPLAY } from '../constants/units';
 import { convertToBaseUnit, getUnitCategory } from '../utils/conversions';

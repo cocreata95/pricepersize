@@ -1,3 +1,5 @@
+'use client'
+
 import { useState, useMemo, useEffect } from 'react';
 import ProductRow from './ProductRow';
 import { compareMultipleProducts } from '../utils/calculations';
