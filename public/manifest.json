@@ -1,0 +1,27 @@
+{
+  "name": "PricePerSize - Unit Price Calculator",
+  "short_name": "PricePerSize",
+  "description": "Compare prices per unit. Find the best value instantly.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#2563eb",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["finance", "shopping", "utilities"],
+  "lang": "en",
+  "dir": "ltr"
+}

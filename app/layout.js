@@ -1,21 +1,152 @@
 import './globals.css'
 
+const baseUrl = 'https://pricepersize.site'
+
 export const metadata = {
-  title: 'PricePerSize - Compare Prices by Unit',
-  description: 'Find the best value by comparing prices per unit. Works for groceries, household items, and more.',
-  keywords: 'price comparison, unit price, price per gram, price per oz, grocery shopping, best value',
+  metadataBase: new URL(baseUrl),
+  title: {
+    default: 'PricePerSize - Free Unit Price Calculator | Compare Prices Instantly',
+    template: '%s | PricePerSize',
+  },
+  description: 'Free online unit price calculator. Compare prices per gram, ounce, ml, or any unit instantly. Find the best value on groceries, household items, and more. No ads, no signup required.',
+  keywords: [
+    'unit price calculator',
+    'price per gram calculator',
+    'price per ounce calculator',
+    'price comparison tool',
+    'cost per unit',
+    'grocery price comparison',
+    'best value calculator',
+    'price per ml',
+    'price per kg',
+    'shopping calculator',
+    'unit price comparison',
+    'bulk buying calculator',
+  ],
+  authors: [{ name: 'PricePerSize' }],
+  creator: 'PricePerSize',
+  publisher: 'PricePerSize',
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  alternates: {
+    canonical: baseUrl,
+  },
   openGraph: {
-    title: 'PricePerSize - Compare Prices by Unit',
-    description: 'Find the best value by comparing prices per unit.',
-    url: 'https://pricepersize.site',
+    title: 'PricePerSize - Free Unit Price Calculator',
+    description: 'Compare prices per unit instantly. Find the best value on groceries and household items. Free, fast, no signup.',
+    url: baseUrl,
     siteName: 'PricePerSize',
+    locale: 'en_US',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'PricePerSize - Compare Prices by Unit',
-    description: 'Find the best value by comparing prices per unit.',
+    title: 'PricePerSize - Free Unit Price Calculator',
+    description: 'Compare prices per unit instantly. Find the best value on groceries and household items.',
   },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  verification: {
+    // Add your verification codes here when you have them
+    // google: 'your-google-verification-code',
+    // yandex: 'your-yandex-verification-code',
+  },
+  category: 'finance',
+}
+
+// JSON-LD Schema for SEO
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebSite',
+      '@id': `${baseUrl}/#website`,
+      url: baseUrl,
+      name: 'PricePerSize',
+      description: 'Free unit price calculator for comparing product values',
+      publisher: {
+        '@id': `${baseUrl}/#organization`,
+      },
+      potentialAction: {
+        '@type': 'SearchAction',
+        target: `${baseUrl}/?q={search_term_string}`,
+        'query-input': 'required name=search_term_string',
+      },
+    },
+    {
+      '@type': 'Organization',
+      '@id': `${baseUrl}/#organization`,
+      name: 'PricePerSize',
+      url: baseUrl,
+      logo: {
+        '@type': 'ImageObject',
+        url: `${baseUrl}/logo.png`,
+      },
+    },
+    {
+      '@type': 'WebApplication',
+      '@id': `${baseUrl}/#app`,
+      name: 'PricePerSize Unit Price Calculator',
+      description: 'Calculate and compare unit prices for any product. Find the best value when shopping for groceries, household items, and more.',
+      url: baseUrl,
+      applicationCategory: 'FinanceApplication',
+      operatingSystem: 'Any',
+      offers: {
+        '@type': 'Offer',
+        price: '0',
+        priceCurrency: 'USD',
+      },
+      featureList: [
+        'Compare prices per gram, ounce, ml, liter, and more',
+        'Calculate savings between products',
+        'Verify shelf tag accuracy',
+        'Works offline',
+        'No signup required',
+      ],
+    },
+    {
+      '@type': 'FAQPage',
+      '@id': `${baseUrl}/#faq`,
+      mainEntity: [
+        {
+          '@type': 'Question',
+          name: 'How do I calculate price per unit?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'Enter the total price and product size, select your unit (grams, ounces, ml, etc.), and PricePerSize will instantly calculate the price per unit for easy comparison.',
+          },
+        },
+        {
+          '@type': 'Question',
+          name: 'Is PricePerSize free to use?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'Yes, PricePerSize is completely free with no ads, no signup, and no hidden costs.',
+          },
+        },
+        {
+          '@type': 'Question',
+          name: 'Can I compare products with different units?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'Yes, PricePerSize automatically converts between compatible units (like grams to ounces, or ml to liters) so you can compare products regardless of how they are labeled.',
+          },
+        },
+      ],
+    },
+  ],
 }
 
 export default function RootLayout({ children }) {
@@ -27,6 +158,15 @@ export default function RootLayout({ children }) {
         <link 
           href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" 
           rel="stylesheet" 
+        />
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.svg" />
+        <link rel="manifest" href="/manifest.json" />
+        <meta name="theme-color" content="#2563eb" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
       <body>{children}</body>

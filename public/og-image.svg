@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" fill="none">
+  <rect width="1200" height="630" fill="#f8fafc"/>
+  <rect x="40" y="40" width="1120" height="550" rx="24" fill="#2563eb"/>
+  <text x="600" y="280" font-family="system-ui, -apple-system, sans-serif" font-size="72" font-weight="700" fill="white" text-anchor="middle">PricePerSize</text>
+  <text x="600" y="360" font-family="system-ui, -apple-system, sans-serif" font-size="36" fill="rgba(255,255,255,0.9)" text-anchor="middle">Compare prices per unit instantly</text>
+  <text x="600" y="420" font-family="system-ui, -apple-system, sans-serif" font-size="28" fill="rgba(255,255,255,0.7)" text-anchor="middle">Free • Fast • No signup required</text>
+</svg>
