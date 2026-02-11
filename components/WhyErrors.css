@@ -1,0 +1,123 @@
+.why-section {
+  padding: var(--spacing-8) var(--spacing-4);
+  max-width: 900px;
+  margin: 0 auto;
+  background: var(--primary-50);
+  border-top: 1px solid var(--primary-100);
+  border-bottom: 1px solid var(--primary-100);
+}
+
+@media (min-width: 768px) {
+  .why-section {
+    padding: var(--spacing-12) var(--spacing-6);
+  }
+}
+
+.why-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.why-title {
+  font-size: var(--text-xl);
+  font-weight: var(--font-bold);
+  color: var(--primary-900);
+  text-align: center;
+  margin-bottom: var(--spacing-6);
+}
+
+@media (min-width: 768px) {
+  .why-title {
+    font-size: var(--text-2xl);
+    margin-bottom: var(--spacing-8);
+  }
+}
+
+.reasons-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--spacing-4);
+  margin-bottom: var(--spacing-6);
+}
+
+@media (min-width: 640px) {
+  .reasons-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-5);
+    margin-bottom: var(--spacing-8);
+  }
+}
+
+.reason-card {
+  background: var(--white);
+  border: 1px solid var(--primary-200);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-4);
+  text-align: center;
+  transition: all 0.2s ease;
+}
+
+@media (min-width: 768px) {
+  .reason-card {
+    padding: var(--spacing-5);
+  }
+}
+
+.reason-card:hover {
+  border-color: var(--primary-300);
+  box-shadow: var(--shadow-sm);
+}
+
+.reason-icon {
+  font-size: 32px;
+  margin-bottom: var(--spacing-3);
+}
+
+@media (min-width: 768px) {
+  .reason-icon {
+    font-size: 40px;
+  }
+}
+
+.reason-title {
+  font-size: var(--text-base);
+  font-weight: var(--font-semibold);
+  color: var(--primary-900);
+  margin-bottom: var(--spacing-2);
+}
+
+@media (min-width: 768px) {
+  .reason-title {
+    font-size: var(--text-lg);
+  }
+}
+
+.reason-text {
+  font-size: var(--text-sm);
+  color: var(--primary-600);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.why-conclusion {
+  text-align: center;
+  font-size: var(--text-sm);
+  color: var(--primary-700);
+  line-height: 1.6;
+  margin: 0;
+  padding: var(--spacing-4);
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--primary-200);
+}
+
+@media (min-width: 768px) {
+  .why-conclusion {
+    font-size: var(--text-base);
+    padding: var(--spacing-5);
+  }
+}
+
+.why-conclusion strong {
+  color: var(--primary-900);
+}

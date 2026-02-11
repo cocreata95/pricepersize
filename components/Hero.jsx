@@ -2,63 +2,57 @@ import './Hero.css';
 
 export default function Hero() {
   return (
-    <section className="hero">
+    <section className="hero" id="hero">
       <div className="hero-container">
+        {/* Badge */}
+        <div className="hero-badge">
+          <span className="badge-icon">🧾</span>
+          <span className="badge-text">Grocery Intelligence Platform</span>
+        </div>
+
         {/* Headline */}
         <h1 className="hero-title">
-          Stores use different units to confuse you
+          Scan Receipts. Track Prices.<br />
+          Never Overpay Again.
         </h1>
         <p className="hero-subtitle">
-          We convert everything. You save money.
+          Snap your grocery receipt and we'll <strong>auto-extract every item</strong> with AI.
+          Build your pantry, track price history, and always know the best deal.
         </p>
 
-        {/* Problem Illustration */}
-        <div className="problem-demo">
-          <div className="demo-shelf">
-            <div className="shelf-label">Same Aisle, Same Product:</div>
-            
-            <div className="confusing-products">
-              <div className="shelf-tag">
-                <div className="product-name">🥤 Brand A Soda</div>
-                <div className="product-price">$3.99</div>
-                <div className="product-size">24 oz</div>
-                <div className="unit-price confusing">Which is cheaper?</div>
-              </div>
-              
-              <div className="shelf-tag">
-                <div className="product-name">🥤 Brand B Soda</div>
-                <div className="product-price">$5.49</div>
-                <div className="product-size">2 Liter</div>
-                <div className="unit-price confusing">Hard to tell!</div>
-              </div>
-            </div>
-            
-            <div className="confusion-indicator">
-              <span className="emoji">🤯</span>
-              <span className="text">24 oz vs 2 Liters? How do you compare?</span>
+        {/* Feature Cards */}
+        <div className="hero-features">
+          <div className="feature-card feature-primary">
+            <span className="feature-emoji">📷</span>
+            <div className="feature-content">
+              <h3 className="feature-name">Receipt Scanner</h3>
+              <p className="feature-desc">AI extracts items, prices, and sizes instantly</p>
             </div>
           </div>
+          <div className="feature-card">
+            <span className="feature-emoji">🏠</span>
+            <div className="feature-content">
+              <h3 className="feature-name">Smart Pantry</h3>
+              <p className="feature-desc">Know what you have before you shop</p>
+            </div>
+          </div>
+          <div className="feature-card">
+            <span className="feature-emoji">🏷️</span>
+            <div className="feature-content">
+              <h3 className="feature-name">Shelf Tag Check</h3>
+              <p className="feature-desc">Catch pricing errors stores miss</p>
+            </div>
+          </div>
+        </div>
 
-          {/* Solution Preview */}
-          <div className="solution-arrow">↓</div>
-          
-          <div className="demo-solution">
-            <div className="solution-label">✨ We convert to same unit:</div>
-            <div className="clear-comparison">
-              <div className="result-card">
-                <div className="result-name">Brand A</div>
-                <div className="result-price">$0.17 per oz</div>
-              </div>
-              <div className="result-card winner">
-                <div className="winner-badge">✓ Cheaper</div>
-                <div className="result-name">Brand B</div>
-                <div className="result-price highlight">$0.08 per oz</div>
-              </div>
-            </div>
-            <div className="savings-note">
-              Brand B is 51% cheaper per oz!
-            </div>
-          </div>
+        {/* CTA */}
+        <div className="hero-cta">
+          <a href="#receipt-scanner" className="cta-button primary">
+            Scan Your Receipt →
+          </a>
+          <a href="#quick-tag-check" className="cta-button secondary">
+            Check Shelf Tags
+          </a>
         </div>
       </div>
     </section>

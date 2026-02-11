@@ -96,16 +96,16 @@ export default function QuickTagCheck() {
     <section className="quick-tag-check" id="quick-tag-check">
       {/* Section Header */}
       <h2 className="qtc-headline">
-        🚨 Catch Wrong Shelf Tags
+        �️ Verify Shelf Tag Math
       </h2>
-      <p className="qtc-subtext">Store tags often show wrong math. Try the example below.</p>
+      <p className="qtc-subtext">Shelf tags can have calculation errors. Verify yours in seconds.</p>
       
       {/* Example Callout */}
       <div className="qtc-example">
-        <span className="example-label">Real example:</span>
+        <span className="example-label">Example error:</span>
         <span className="example-text">
-          Tag says <strong>$0.94</strong>/100g for a $4.69/200g item — 
-          actually <strong className="example-actual">$2.35</strong>/100g (150% off!)
+          Tag shows <strong>$0.94</strong>/100g for a $4.69/200g item — 
+          correct price is <strong className="example-actual">$2.35</strong>/100g
         </span>
       </div>
       
