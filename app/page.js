@@ -22,6 +22,7 @@ export default function Home() {
 
   // Auth listener
   useEffect(() => {
+    if (!supabase) return
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       (_event, session) => {
         setUser(session?.user || null)
