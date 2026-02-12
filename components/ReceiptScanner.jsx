@@ -44,14 +44,19 @@ export default function ReceiptScanner({ user, onScanComplete, onAuthRequired })
         body: formData,
       })
 
+      // supabase.functions.invoke returns data even on non-2xx
+      // Check for actual error details in the response body first
+      const result = data
+        ? (typeof data === 'string' ? JSON.parse(data) : data)
+        : null
+
       if (fnError) {
-        throw new Error(fnError.message || 'Failed to call scan function')
+        const msg = result?.error || fnError.message || 'Failed to call scan function'
+        throw new Error(msg)
       }
 
-      const result = typeof data === 'string' ? JSON.parse(data) : data
-
-      if (!result.success) {
-        throw new Error(result.error || 'Failed to scan receipt')
+      if (!result?.success) {
+        throw new Error(result?.error || 'Failed to scan receipt')
       }
 
       setProgress('Done!')
