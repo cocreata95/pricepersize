@@ -33,30 +33,40 @@ export default function ReceiptScanner({ user, onScanComplete, onAuthRequired })
 
       setProgress('Scanning with AI...')
 
-      // Call Supabase Edge Function via SDK (handles auth headers automatically)
       const formData = new FormData()
       formData.append('receipt', file)
       formData.append('userId', user.id)
 
       if (!supabase) throw new Error('Service unavailable')
+      const { data: { session } } = await supabase.auth.getSession()
+      const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 
-      const { data, error: fnError } = await supabase.functions.invoke('receipt_scan', {
-        body: formData,
-      })
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_SUPABASE_URL}/functions/v1/receipt_scan`,
+        {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${session?.access_token || anonKey}`,
+            'apikey': anonKey,
+          },
+          body: formData,
+        }
+      )
 
-      // supabase.functions.invoke returns data even on non-2xx
-      // Check for actual error details in the response body first
-      const result = data
-        ? (typeof data === 'string' ? JSON.parse(data) : data)
-        : null
-
-      if (fnError) {
-        const msg = result?.error || fnError.message || 'Failed to call scan function'
-        throw new Error(msg)
+      // Always read the body so we surface the real error
+      let result
+      try {
+        result = await response.json()
+      } catch {
+        throw new Error(`Function returned ${response.status}: ${response.statusText}`)
       }
 
-      if (!result?.success) {
-        throw new Error(result?.error || 'Failed to scan receipt')
+      if (!response.ok) {
+        throw new Error(result?.error || `Function error (${response.status})`)
+      }
+
+      if (!result.success) {
+        throw new Error(result.error || 'Failed to scan receipt')
       }
 
       setProgress('Done!')
