@@ -12,7 +12,7 @@ export default function Pantry({ user }) {
   const [searchResults, setSearchResults] = useState(null)
 
   const fetchItems = useCallback(async () => {
-    if (!user) return
+    if (!user || !supabase) return
     setLoading(true)
     try {
       let query = supabase
@@ -42,6 +42,7 @@ export default function Pantry({ user }) {
   const toggleStatus = async (itemId, currentStatus) => {
     const newStatus = currentStatus === 'have' ? 'used_up' : 'have'
     try {
+      if (!supabase) return
       const { error } = await supabase
         .from('pantry_items')
         .update({ status: newStatus, updated_at: new Date().toISOString() })
@@ -55,6 +56,7 @@ export default function Pantry({ user }) {
 
   const deleteItem = async (itemId) => {
     try {
+      if (!supabase) return
       const { error } = await supabase
         .from('pantry_items')
         .delete()

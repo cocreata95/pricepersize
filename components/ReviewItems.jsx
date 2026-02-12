@@ -35,6 +35,7 @@ export default function ReviewItems({ scanResult, user, onConfirm, onCancel }) {
     setSaving(true)
 
     try {
+      if (!supabase) throw new Error('Service unavailable')
       const { data: { session } } = await supabase.auth.getSession()
 
       // Save confirmed items to pantry + price history

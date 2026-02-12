@@ -19,6 +19,7 @@ export default function PantrySearch({ user, onResults }) {
 
     debounceRef.current = setTimeout(async () => {
       try {
+        if (!supabase) return
         const searchTerm = query.trim().toLowerCase()
         const { data, error } = await supabase
           .from('pantry_items')

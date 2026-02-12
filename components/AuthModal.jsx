@@ -19,6 +19,7 @@ export default function AuthModal({ onClose, onAuth }) {
     setMessage(null)
 
     try {
+      if (!supabase) throw new Error('Service unavailable. Please try again later.')
       if (mode === 'signup') {
         const { data, error: signUpError } = await supabase.auth.signUp({
           email,
@@ -46,6 +47,7 @@ export default function AuthModal({ onClose, onAuth }) {
     setLoading(true)
     setError(null)
     try {
+      if (!supabase) throw new Error('Service unavailable. Please try again later.')
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {

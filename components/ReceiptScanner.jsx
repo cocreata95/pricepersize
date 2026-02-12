@@ -38,6 +38,7 @@ export default function ReceiptScanner({ user, onScanComplete, onAuthRequired })
       formData.append('receipt', file)
       formData.append('userId', user.id)
 
+      if (!supabase) throw new Error('Service unavailable')
       const { data: { session } } = await supabase.auth.getSession()
 
       const response = await fetch(
