@@ -5,7 +5,7 @@ import { supabase } from '@/lib/supabase'
 import PantrySearch from './PantrySearch'
 import './Pantry.css'
 
-export default function Pantry({ user }) {
+export default function Pantry({ user, refreshKey }) {
   const [items, setItems] = useState([])
   const [loading, setLoading] = useState(true)
   const [filter, setFilter] = useState('have') // 'have' | 'used_up' | 'all'
@@ -37,7 +37,7 @@ export default function Pantry({ user }) {
 
   useEffect(() => {
     fetchItems()
-  }, [fetchItems])
+  }, [fetchItems, refreshKey])
 
   const toggleStatus = async (itemId, currentStatus) => {
     const newStatus = currentStatus === 'have' ? 'used_up' : 'have'

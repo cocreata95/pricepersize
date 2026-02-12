@@ -19,6 +19,7 @@ export default function Home() {
   const [showAuth, setShowAuth] = useState(false)
   const [scanResult, setScanResult] = useState(null)
   const [results, setResults] = useState(null)
+  const [pantryKey, setPantryKey] = useState(0)
 
   // Auth listener
   useEffect(() => {
@@ -42,7 +43,8 @@ export default function Home() {
 
   const handleConfirmItems = () => {
     setScanResult(null)
-    // Scroll to pantry to show saved items
+    // Trigger pantry re-fetch and scroll to it
+    setPantryKey(k => k + 1)
     document.getElementById('pantry')?.scrollIntoView({ behavior: 'smooth' })
   }
 
@@ -65,7 +67,7 @@ export default function Home() {
           onScanComplete={handleScanComplete}
           onAuthRequired={() => setShowAuth(true)}
         />
-        <Pantry user={user} />
+        <Pantry user={user} refreshKey={pantryKey} />
         <QuickTagCheck />
         <Calculator onResults={handleResults} />
         <WhyErrors />
