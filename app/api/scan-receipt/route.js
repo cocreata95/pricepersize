@@ -1,6 +1,10 @@
 import { createClient } from '@supabase/supabase-js'
 
 export const runtime = 'edge'
+export const maxDuration = 60
+
+// Vercel edge functions handle up to 4.5MB by default.
+// Compress images client-side before uploading to stay within limits.
 
 const GEMINI_PROMPT = `You are an expert at extracting structured data from grocery/shopping receipts.
 

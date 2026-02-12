@@ -1,16 +1,19 @@
 // supabase/functions/scan-receipt/index.ts
 // Supabase Edge Function: Receipt scanning with Gemini 2.5 Flash
 //
-// Secrets required (set via `supabase secrets set`):
-//   GEMINI_API_KEY=your-gemini-api-key
+// Secrets required: GEMINI_API_KEY
+// Auto-available: SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY
 //
-// Invoke via:
-//   POST https://onertzstedqlbecfbbmd.supabase.co/functions/v1/scan-receipt
-//   Headers: Authorization: Bearer <supabase-anon-key>
-//   Body: FormData with 'receipt' (image file)
+// Endpoint: POST https://onertzstedqlbecfbbmd.supabase.co/functions/v1/scan-receipt
+// Body: FormData with 'receipt' (image file) and 'userId' (string)
 
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
-import { corsHeaders } from "../_shared/cors.ts";
+
+const corsHeaders = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
+  "Access-Control-Allow-Methods": "POST, OPTIONS",
+};
 
 interface ReceiptItem {
   item_name: string;
