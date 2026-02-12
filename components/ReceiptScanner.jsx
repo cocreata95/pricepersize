@@ -46,7 +46,8 @@ export default function ReceiptScanner({ user, onScanComplete, onAuthRequired })
         {
           method: 'POST',
           headers: {
-            'Authorization': `Bearer ${session?.access_token || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY}`,
+            'Authorization': `Bearer ${session?.access_token}`,
+            'apikey': process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
           },
           body: formData,
         }
