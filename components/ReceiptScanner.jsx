@@ -33,24 +33,15 @@ export default function ReceiptScanner({ user, onScanComplete, onAuthRequired })
 
       setProgress('Scanning with AI...')
 
-      // Call Supabase Edge Function
+      // Call Next.js API route
       const formData = new FormData()
       formData.append('receipt', file)
       formData.append('userId', user.id)
 
-      if (!supabase) throw new Error('Service unavailable')
-      const { data: { session } } = await supabase.auth.getSession()
-
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_SUPABASE_URL}/functions/v1/scan-receipt`,
-        {
-          method: 'POST',
-          headers: {
-            'Authorization': `Bearer ${session?.access_token || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY}`,
-          },
-          body: formData,
-        }
-      )
+      const response = await fetch('/api/scan-receipt', {
+        method: 'POST',
+        body: formData,
+      })
 
       const result = await response.json()
 
