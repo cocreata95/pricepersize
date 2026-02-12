@@ -33,27 +33,22 @@ export default function ReceiptScanner({ user, onScanComplete, onAuthRequired })
 
       setProgress('Scanning with AI...')
 
-      // Call Supabase Edge Function
+      // Call Supabase Edge Function via SDK (handles auth headers automatically)
       const formData = new FormData()
       formData.append('receipt', file)
       formData.append('userId', user.id)
 
       if (!supabase) throw new Error('Service unavailable')
-      const { data: { session } } = await supabase.auth.getSession()
 
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_SUPABASE_URL}/functions/v1/receipt_scan`,
-        {
-          method: 'POST',
-          headers: {
-            'Authorization': `Bearer ${session?.access_token}`,
-            'apikey': process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
-          },
-          body: formData,
-        }
-      )
+      const { data, error: fnError } = await supabase.functions.invoke('receipt_scan', {
+        body: formData,
+      })
 
-      const result = await response.json()
+      if (fnError) {
+        throw new Error(fnError.message || 'Failed to call scan function')
+      }
+
+      const result = typeof data === 'string' ? JSON.parse(data) : data
 
       if (!result.success) {
         throw new Error(result.error || 'Failed to scan receipt')
