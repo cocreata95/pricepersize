@@ -36,18 +36,14 @@ export default function ReviewItems({ scanResult, user, onConfirm, onCancel }) {
 
     try {
       if (!supabase) throw new Error('Service unavailable')
-      const { data: { session } } = await supabase.auth.getSession()
 
-      // Save confirmed items to pantry + price history
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_SUPABASE_URL}/functions/v1/confirm-receipt`,
-        {
-          method: 'POST',
-          headers: {
-            'Authorization': `Bearer ${session?.access_token}`,
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
+      // Save confirmed items via API route
+      const response = await fetch('/api/confirm-receipt', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
             receipt_id,
             user_id: user.id,
             store_name: data.store_name,
