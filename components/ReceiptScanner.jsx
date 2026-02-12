@@ -40,29 +40,49 @@ export default function ReceiptScanner({ user, onScanComplete, onAuthRequired })
       if (!supabase) throw new Error('Service unavailable')
       const { data: { session } } = await supabase.auth.getSession()
       const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+      const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
 
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_SUPABASE_URL}/functions/v1/receipt_scan`,
-        {
-          method: 'POST',
-          headers: {
-            'Authorization': `Bearer ${session?.access_token || anonKey}`,
-            'apikey': anonKey,
-          },
-          body: formData,
-        }
-      )
+      // Debug logging — check browser console
+      console.log('=== RECEIPT SCAN DEBUG ===')
+      console.log('Supabase URL:', supabaseUrl)
+      console.log('Anon key present:', !!anonKey, 'length:', anonKey?.length)
+      console.log('Session present:', !!session)
+      console.log('Access token present:', !!session?.access_token, 'length:', session?.access_token?.length)
+      console.log('User ID:', user.id)
+      console.log('File:', file.name, file.type, file.size, 'bytes')
+
+      const authToken = session?.access_token || anonKey
+      console.log('Using auth token type:', session?.access_token ? 'session' : 'anon_key')
+      console.log('Auth token first 20 chars:', authToken?.substring(0, 20))
+
+      const functionUrl = `${supabaseUrl}/functions/v1/receipt_scan`
+      console.log('Calling:', functionUrl)
+
+      const response = await fetch(functionUrl, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${authToken}`,
+          'apikey': anonKey,
+        },
+        body: formData,
+      })
+
+      console.log('Response status:', response.status, response.statusText)
+      console.log('Response headers:', Object.fromEntries(response.headers.entries()))
 
       // Always read the body so we surface the real error
       let result
+      const responseText = await response.text()
+      console.log('Response body:', responseText)
+      
       try {
-        result = await response.json()
+        result = JSON.parse(responseText)
       } catch {
-        throw new Error(`Function returned ${response.status}: ${response.statusText}`)
+        throw new Error(`Function returned ${response.status}: ${responseText || response.statusText}`)
       }
 
       if (!response.ok) {
-        throw new Error(result?.error || `Function error (${response.status})`)
+        throw new Error(result?.error || result?.message || result?.msg || `Function error (${response.status}): ${responseText}`)
       }
 
       if (!result.success) {
